@@ -18,7 +18,7 @@ module Linkedin
 
     def initialize(url, proxy_host = nil, proxy_port = nil)
       @linkedin_url = url
-      @page         = http_client.get(url, proxy_host, proxy_port)
+      @page         = http_client(proxy_host, proxy_port).get(url)
     end
 
     def name
