@@ -25,6 +25,10 @@ module Linkedin
       "#{first_name} #{last_name}"
     end
 
+    def num_connections
+      @num_connections ||= (@page.at('.overview-connections').text.gsub(/\s+connections?/, '').strip if @page.at('.overview-connections'))
+    end
+
     def first_name
       @first_name ||= (@page.at('.given-name').text.strip if @page.at('.given-name'))
     end
@@ -177,6 +181,30 @@ module Linkedin
         end
       end
       @recommended_visitors
+    end
+
+    def causes_suported
+      unless @causes_supported
+        @causes_supported = []
+        if @page.at('ul.volunteering/li.interests/li.care/ul/li')
+          @causes_supported = @page.search('ul.volunteering/li.interests/li.care/ul/li').map do |item|
+            item.strip rescue nil
+          end
+        end
+      end
+      @causes_supported
+    end
+
+    def organizations_supported
+      unless @organizations_supported
+        @organizations_supported = []
+        if @page.at('ul.volunteering/li.interests/li.support/ul/li')
+          @organizations_supported = @page.search('ul.volunteering/li.interests/li.support/ul/li').map do |item|
+            item.strip rescue nil
+          end
+        end
+      end
+      @organizations_supported
     end
 
     def to_json
