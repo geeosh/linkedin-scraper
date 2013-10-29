@@ -187,7 +187,7 @@ module Linkedin
       unless @causes_supported
         @causes_supported = []
         if @page.at('ul.volunteering/li.interests/ul/li.care/ul/li')
-          @causes_supported = @page.search('ul.volunteering/li.interests/li.care/ul/li').map do |item|
+          @causes_supported = @page.search('ul.volunteering/li.interests/ul/li.care/ul/li').map do |item|
             item.text.strip rescue nil
           end
         end
@@ -199,7 +199,7 @@ module Linkedin
       unless @organizations_supported
         @organizations_supported = []
         if @page.at('ul.volunteering/li.interests/ul/li.support/ul/li')
-          @organizations_supported = @page.search('ul.volunteering/li.interests/li.support/ul/li').map do |item|
+          @organizations_supported = @page.search('ul.volunteering/li.interests/ul/li.support/ul/li').map do |item|
             item.text.strip rescue nil
           end
         end
