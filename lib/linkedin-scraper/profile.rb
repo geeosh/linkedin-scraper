@@ -183,12 +183,12 @@ module Linkedin
       @recommended_visitors
     end
 
-    def causes_suported
+    def causes_supported
       unless @causes_supported
         @causes_supported = []
         if @page.at('ul.volunteering/li.interests/li.care/ul/li')
           @causes_supported = @page.search('ul.volunteering/li.interests/li.care/ul/li').map do |item|
-            item.strip rescue nil
+            item.text.strip rescue nil
           end
         end
       end
@@ -200,7 +200,7 @@ module Linkedin
         @organizations_supported = []
         if @page.at('ul.volunteering/li.interests/li.support/ul/li')
           @organizations_supported = @page.search('ul.volunteering/li.interests/li.support/ul/li').map do |item|
-            item.strip rescue nil
+            item.text.strip rescue nil
           end
         end
       end
