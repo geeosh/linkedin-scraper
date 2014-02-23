@@ -2,23 +2,12 @@
 module Linkedin
   class Profile
 
-    USER_AGENTS = ['Windows IE 6', 'Windows IE 7', 'Windows Mozilla', 'Mac Safari', 'Mac FireFox', 'Mac Mozilla', 'Linux Mozilla', 'Linux Firefox', 'Linux Konqueror']
-
     ATTRIBUTES = %w(name first_name last_name num_connections title location country industry summary picture linkedin_url education groups websites languages skills certifications organizations past_companies current_companies recommended_visitors causes_supported organizations_supported)
 
-    attr_reader :page, :linkedin_url
+    attr_reader :page
 
-    def self.get_profile(url, proxy_host = nil, proxy_port = nil)
-      begin
-        Linkedin::Profile.new(url, proxy_host, proxy_port)
-      rescue => e
-        puts e
-      end
-    end
-
-    def initialize(url, proxy_host = nil, proxy_port = nil)
-      @linkedin_url = url
-      @page         = http_client(proxy_host, proxy_port).get(url)
+    def initialize(public_profile_body)
+      @page         = Nokogiri::HTML(public_profile_body)
     end
 
     def name
@@ -265,6 +254,5 @@ module Linkedin
         end
       end
     end
-
   end
 end
