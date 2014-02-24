@@ -222,8 +222,9 @@ module Linkedin
 
           company_link = node.at('h4/strong/a')['href'] if node.at('h4/strong/a')
 
-          result = get_company_details(company_link)
-          companies << company.merge!(result)
+          #result = get_company_details(company_link)
+          #companies << company.merge!(result)
+          companies << company
         end
       end
       companies
